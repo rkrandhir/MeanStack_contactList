@@ -1,4 +1,45 @@
 
-abc<ul>
-  <li *ngFor="let item of contactLists">{{ item.first_name }}</li>
-</ul>
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+      <form [formGroup]="contactForm" (ngSubmit)='onSubmit()'>
+        <h1>Add Your Family Members</h1>
+     <!-- {{ contactForm.value | json}} -->
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <input type="text" class="form-control" placeholder="First Name" formControlName="first_name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <input type="text" class="form-control"  placeholder="Last Name" formControlName="last_name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <input type="text" class="form-control"  placeholder="Phone Number" formControlName="phone">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 form-group">
+            <button type='submit' value='submit' class='btn btn-primary'>Submit</button>
+          </div>
+        </div>
+      </form>
+  </div>
+  <div class="col-xs-12 col-sm-6" *ngIf='contactLists.length'>
+    <h2>My family</h2>
+    <ul>
+      <li *ngFor="let item of contactLists">
+        <div class="row">
+          <div class="col-xs-10">
+            <div>{{ item.first_name }} {{ item.last_name }} </div>
+            <p>Phone number: {{ item.phone }}</p>
+          </div>
+          <div class="col-xs-2"><p class='pull-right deleteIcon' (click)='onDeleteContact(item._id)'></p></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
