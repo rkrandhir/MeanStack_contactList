@@ -46,4 +46,15 @@ router.delete('/contact/:id', (req, res, next) => {
   });
 });
 
+//update contact
+router.put('/contact/:id', (req, res, next) => {
+  Contact.updateOne({_id: req.param.id}, function(err, result) {
+    if(err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  })
+})
+
 module.exports = router; 
