@@ -35,4 +35,10 @@ export class ContactsService {
     const url = 'http://localhost:3000/contact/'+id;
     return this.http.delete<Contact[]>(url, httpOptions)
   }
+  
+  // UPDATE CONTACT DETAILS
+  updateContact(payload:any,id): Observable<Contact[]> {
+    const url = 'http://localhost:3000/contact/'+id;
+    return this.http.put<Contact[]>(url, payload, httpOptions)
+  }
 }

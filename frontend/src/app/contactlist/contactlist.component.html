@@ -31,10 +31,11 @@
     <ul>
       <li *ngFor="let item of contactLists">
         <div class="row">
-          <div class="col-xs-10">
+          <div class="col-xs-8">
             <div>{{ item.first_name }} {{ item.last_name }} </div>
             <p>Phone number: {{ item.phone }}</p>
           </div>
+          <div class="col-xs-2"><p class='pull-right' (click)='onUpdateContact(item)'>Edit</p></div>
           <div class="col-xs-2"><p class='pull-right deleteIcon' (click)='onDeleteContact(item._id)'></p></div>
         </div>
       </li>

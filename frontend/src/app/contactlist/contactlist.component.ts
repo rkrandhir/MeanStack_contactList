@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class ContactlistComponent implements OnInit {
   public contactLists : any = [];
   contactForm: FormGroup;
+  updateItemId:string = ''; //Id of to be edited Item
 
   constructor(private contactService: ContactsService, private fb: FormBuilder) { 
     
@@ -45,16 +46,28 @@ export class ContactlistComponent implements OnInit {
 
     //payload.push(this.contactForm.value);
     console.log(payload);
+    if(this.updateItemId == '') {  //Add Item
+      return this.contactService.addContact(payload).subscribe(
+        data => {
+          console.log('Data Submitted');
+          this.ngOnInit();
+        },
+        error => {
+          console.log('Error in data')
+        }
+      )
+    } else { //update Item
+      return this.contactService.updateContact(payload, this.updateItemId).subscribe(
+        data => {
+          console.log('Data Submitted');
+          this.ngOnInit();
+        },
+        error => {
+          console.log('Error in data')
+        }
+      )
+    }
     
-    return this.contactService.addContact(payload).subscribe(
-      data => {
-        console.log('Data Submitted');
-        this.ngOnInit();
-      },
-      error => {
-        console.log('Error in data')
-      }
-    )
   }
 
   onDeleteContact(id) {
@@ -68,6 +81,18 @@ export class ContactlistComponent implements OnInit {
         console.log('Error in data')
       }
     )
+  }
+
+  //UPDATE CONTACT
+  onUpdateContact(item){
+    this.contactForm.patchValue({
+      first_name: [item.first_name],
+      last_name: [item.last_name],
+      phone: [item.phone]
+    });
+
+    this.updateItemId = item._id;
+    
   }
 
 }
